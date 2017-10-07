@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+
+{% block maincontent %}
+<style>
+    .container { width: 650px; }
+    .header { font-weight: bold; background: #ddd; margin-bottom: 10px; }
+    .container div { padding: 5px 7px;}
+    .clearfix{ clear:both; }
+    .left{ float: left; }
+    .col-uname{ width: 45%; }
+    .col-urole{ width: 15%; text-align: center; }
+    .col-edit{ width: 15%; }
+    .col-status{ width: 15%; text-align: center; }
+    input{ cursor: pointer; }
+</style>
+<h1>List all Users</h1>
+<div class="container">
+    <div class="col-uname header left">Username Name</div>
+    <div class="col-urole header left">Role</div>
+    <div class="col-status header left">Status</div>
+    <div class="col-edit header left">Action</div>
+    
+    {% for user in allusers %}
+    <form action="/edituser" method="POST" role="form">
+        <div class="col-uname left">{{ user.email_address }}</div>
+        <div class="col-urole left">{{ user.user_role }}</div>
+        <div class="col-status left">{{ user.user_status }}</div>
+        <div class="col-edit left">
+            <input value="{{ user.keystr }}" name="keystr" type="hidden" />
+            <input value="Edit" class="btn-submit" name="submit-{{ user.email_address }}" type="submit" />
+        </div>
+    </form>
+    {% endfor %}
+    <div class="clearfix"></div>
+</div>
+{% endblock %}
