@@ -1,0 +1,96 @@
+{% extends "main.html" %}
+
+{% block maincontent %}
+<style>
+    .container { width: 650px; }
+    .header { font-weight: bold; background: #ddd; margin-bottom: 10px; }
+    .container div { padding: 5px 7px;}
+    .clearfix{ clear:both; }
+    .left{ float: left; }
+    .col-fieldname{ width: 45%; }
+    .col-fieldvalue{ width: 45%;}
+    input{ cursor: pointer; }
+    .status_height{ height:18px; }
+    .update_status {
+        color: #666;
+        padding: 0!important;
+        -moz-animation: cssAnimation 0s ease-in 5s forwards;
+        /* Firefox */
+        -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+        /* Safari and Chrome */
+        -o-animation: cssAnimation 0s ease-in 5s forwards;
+        /* Opera */
+        animation: cssAnimation 0s ease-in 5s forwards;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+    }
+    @keyframes cssAnimation {
+        to {
+            width:0;
+            height:0;
+            overflow:hidden;
+        }
+    }
+    @-webkit-keyframes cssAnimation {
+        to {
+            width:0;
+            height:0;
+            visibility:hidden;
+        }
+    }
+    
+</style>
+<h1>Edit User: {{ curruser.email_address }}</h1>
+<div class="container">
+    <div class="col-fieldname header left">Field Name</div>
+    <div class="col-fieldvalue header left">Value</div>
+    <form action="/edituser" method="POST" role="form">
+        <div class="col-fieldname left">Email Address:</div>
+        <div class="col-fieldvalue left">
+            <input value="{{  curruser.email_address }}" name="email_address" type="text" />
+        </div>
+        <div class="col-fieldname left">First Name:</div>
+        <div class="col-fieldvalue left">
+            <input value="{{  curruser.first_name }}" name="first_name" type="text" />
+        </div>
+        <div class="col-fieldname left">Last Name:</div>
+        <div class="col-fieldvalue left">
+            <input value="{{  curruser.last_name }}" name="last_name" type="text" />
+        </div>
+        
+        <div class="col-fieldname left">Role:</div>
+        <div class="col-fieldvalue left">
+            <select name="user_role">
+                {% if curruser.user_role == 'admin' %}
+                    <option value="admin" selected="selected">Admin</option>
+                {% else %}
+                    <option value="admin">Admin</option>
+                    <option value="user" selected="selected">Normal User</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="col-fieldname left">Status:</div>
+        <div class="col-fieldvalue left">
+            <select name="user_status">
+                {% if curruser.user_status == 'active' %}
+                    <option value="active" selected="selected">Active</option>
+                    <option value="banned">Banned</option>
+                {% else %}
+                    <option value="active">Active</option>
+                    <option value="banned" selected="selected">Banned</option>
+                {% endif %}
+            </select>
+            <input value="update" name="post_form" type="hidden" />
+            <input value="{{ curruser.keystr }}" name="keystr" type="hidden" />
+        </div>
+        <div class="col-fieldname left"><input value="&lt; Back" class="btn-back" name="btn-back" type="button" onclick="window.location.href='/allusers'" /></div>
+        <div class="col-fieldvalue left"><input value="Update" class="btn-submit" name="submit-{{ curruser.email_address }}" type="submit" /></div>
+    </form>
+    <div class="col-fieldname left"></div>
+
+    <div class="col-fieldvalue status_height left">{% if curruser.update_status == "updated" %} <div class="update_status">Record has been updated!</div> {% endif %}</div>
+
+    <div class="clearfix"></div>
+
+</div>
+{% endblock %}
