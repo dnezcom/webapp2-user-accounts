@@ -1,0 +1,11 @@
+{% extends "main.html" %}
+
+{% block maincontent %}
+
+<h1>Congratulations {{ user.name }}!</h1>
+<p>If you see this page, it means that you managed to log in successfully.</p>
+<form action="/update-profile" method="POST">
+    <input name="update_profile" value="Update Profile" type="submit" />
+</form>
+
+{% endblock %}
