@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}User accounts demo{% endblock %}</title>
+    <style>
+      input {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+
+  <div class="content">
+    {% block maincontent %}
+
+    {% endblock %}
+  </div>
+
+  <div>
+    <footer>
+      <hr/>
+      <p>
+        {% if not user or user.user_status == 'banned' %}
+          <a href="/login">Login (and forgot password)</a>
+        {% else %}
+          Logged in as <span style="background-color: OldLace">{{ user.name }} </span> | <a href="/logout">Logout</a>
+        {% endif %}
+        |
+        <a href="/">Home</a>
+        |
+        <a href="/signup">New user</a>
+        |
+        <a href="/authenticated-user">User page</a> (user login)
+        |
+        <a href="/authenticated-admin">Admin page</a> (admin login)
+        |
+        <a href="http://blog.abahgat.com/2013/01/07/user-authentication-with-webapp2-on-google-app-engine/">Tutorial</a>
+        |
+        <a href="http://github.com/abahgat/webapp2-user-accounts">Source code</a>
+      </p>
+      <p>
+        Got questions? <a href="http://blog.abahgat.com/about">Get in touch</a>.
+        <small>And if you want to <strong>donate</strong> a little something, <a href="http://abahgat.github.io/webapp2-user-accounts#donate">here</a> a few options.</small>
+      </p>
+    </footer>
+  </div>
+
+
+  </body>
+</html>
